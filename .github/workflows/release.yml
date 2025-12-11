@@ -1,0 +1,65 @@
+name: Release Binary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    permissions:
+      contents: write
+      packages: write
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Package Binary
+        run: |
+          zip en-he-replace-macos.zip target/release/en-he-replace -j
+
+      - name: Get Version
+        id: get_version
+        run: |
+          VERSION=$(grep '^version = ' Cargo.toml | sed -E 's/version = "(.*)"/\1/')
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "Version: $VERSION"
+
+      - name: Prepare Release
+        run: |
+          set -e
+          cp resources/en-he-replace.template.rb Formula/en-he-replace.rb
+          # Replace "REPLACE_WITH_VERSION" with the new version in the formula file
+
+          sed -i "" "s/REPLACE_WITH_VERSION/${{ env.VERSION }}/" Formula/en-he-replace.rb
+
+          # Get the new SHA256 checksum
+          ZIP_SHA=$(shasum -a 256 en-he-replace-macos.zip | awk '{print $1}')
+
+          # Replace "REPLACE_WITH_ZIP_SHA" with the new SHA256 checksum in the formula file
+          sed -i "" "s/REPLACE_WITH_ZIP_SHA/$ZIP_SHA/" Formula/en-he-replace.rb
+          
+          git add Formula/en-he-replace.rb
+          git config --local user.name "${{ github.actor }}"
+          git commit -m "Update formula file to version ${{ env.VERSION }}"
+          git push
+
+          echo "Formula file updated successfully."
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: en-he-replace-macos.zip
+          tag_name: v${{ env.VERSION }}
+          name: v${{ env.VERSION }}

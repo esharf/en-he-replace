@@ -7,5 +7,16 @@ class AwsUrlCopyTool < Formula
 
   def install
     bin.install "en-he-replace"
+    pkgshare.install "en<->he.workflow"
+  end
+
+  def caveats
+    <<~EOS
+      To enable the included Automator service, copy the workflow to your Services folder:
+
+        cp -R "#{pkgshare}/en<->he.workflow" "~/Library/Services/"
+
+      After copying, the service will be available in the Services menu.
+    EOS
   end
 end

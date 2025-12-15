@@ -15,3 +15,13 @@ brew tap esharf/main
 brew install en-he-replace
 brew services start esharf/main/en-he-replace
 ```
+
+## Automator Service
+
+An Automator service (en<->he) is included in `resources/en<->he.workflow`.
+To enable it, copy the workflow to your Services folder:
+
+```bash
+cp -R resources/en<->he.workflow ~/Library/Services/
+```
+After copying, the service will be available in the Services menu.

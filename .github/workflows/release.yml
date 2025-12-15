@@ -13,10 +13,10 @@ jobs:
       
     steps:
       - name: Checkout
-        uses: actions/checkout
+        uses: actions/checkout@v6
 
       - name: Install Rust
-        uses: actions-rust-lang/setup-rust-toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
 
       - name: Build
         run: cargo build --release
@@ -55,7 +55,7 @@ jobs:
           echo "Formula file updated successfully."
 
       - name: Upload Release Asset
-        uses: softprops/action-gh-release
+        uses: softprops/action-gh-release@v2
         with:
           files: en-he-replace-macos.zip
           tag_name: v${{ env.VERSION }}

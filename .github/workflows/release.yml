@@ -27,7 +27,8 @@ jobs:
 
       - name: Package Binary
         run: |
-          zip en-he-replace-macos.zip "target/release/en-he-replace" "resources/en<->he.workflow" -jr
+          zip en-he-replace-macos.zip "target/release/en-he-replace" -j
+          zip -r en-he-replace-macos.zip "resources/en-he-replace.workflow/"
 
       - name: Get Version
         id: get_version

@@ -1,9 +1,9 @@
 class AwsUrlCopyTool < Formula
   desc "Auto-modify macOS clipboard for AWS URLs"
   homepage "https://github.com/esharf/en-he-replace"
-  url "https://github.com/esharf/en-he-replace/releases/download/v0.0.2/en-he-replace-macos.zip"
-  sha256 "0f57073397d7288101cfc8b4502a2a8ec25121e3ce49cdfd3986996e3ee8b0d0"
-  version "0.0.2"
+  url "https://github.com/esharf/en-he-replace/releases/download/v0.0.3/en-he-replace-macos.zip"
+  sha256 "b8d18f7f58775343f7c246d7fc299a11f6c78af5c636e932ed0524ed3f0c3164"
+  version "0.0.3"
 
   def install
     bin.install "en-he-replace"

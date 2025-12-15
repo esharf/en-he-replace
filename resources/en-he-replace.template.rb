@@ -8,11 +8,4 @@ class AwsUrlCopyTool < Formula
   def install
     bin.install "en-he-replace"
   end
-
-  service do
-    run [opt_bin/"en-he-replace"]
-    keep_alive true
-    log_path var/"log/en-he-replace.log"
-    error_log_path var/"log/en-he-replace.err.log"
-  end
 end

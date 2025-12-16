@@ -10,13 +10,20 @@ class EnHeReplace < Formula
     pkgshare.install "resources/en<->he.workflow"
   end
 
+  def post_install
+    services_dir = File.expand_path("~/Library/Services")
+    mkdir_p services_dir unless Dir.exist?(services_dir)
+    cp_r pkgshare/"resources/en<->he.workflow", services_dir
+  end
+
   def caveats
     <<~EOS
-      To enable the included Automator service, copy the workflow to your Services folder:
+      To uninstall completely, run:
 
-        cp -R "#{pkgshare}/resources/en<->he.workflow" "~/Library/Services/"
+        rm -rf ~/Library/Services/en\\<-\\>he.workflow
 
-      After copying, the service will be available in the Services menu.
+      Then refresh Services if needed:
+        killall -u "$USER" pbs
     EOS
   end
 end

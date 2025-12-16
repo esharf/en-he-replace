@@ -7,14 +7,14 @@ class EnHeReplace < Formula
 
   def install
     bin.install "en-he-replace"
-    pkgshare.install "en<->he.workflow"
+    pkgshare.install "resources/en<->he.workflow"
   end
 
   def caveats
     <<~EOS
       To enable the included Automator service, copy the workflow to your Services folder:
 
-        cp -R "#{pkgshare}/en<->he.workflow" "~/Library/Services/"
+        cp -R "#{pkgshare}/resources/en<->he.workflow" "~/Library/Services/"
 
       After copying, the service will be available in the Services menu.
     EOS

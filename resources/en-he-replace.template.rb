@@ -7,7 +7,7 @@ class EnHeReplace < Formula
 
   def install
     bin.install "en-he-replace"
-    libexec.install "resources/en<->he.workflow"
+    libexec.install "resources"
   end
 
   def post_install

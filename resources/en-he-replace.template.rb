@@ -7,13 +7,13 @@ class EnHeReplace < Formula
 
   def install
     bin.install "en-he-replace"
-    pkgshare.install "resources/en<->he.workflow"
+    libexec.install "resources/en<->he.workflow"
   end
 
   def post_install
     services_dir = File.expand_path("~/Library/Services")
     mkdir_p services_dir unless Dir.exist?(services_dir)
-    cp_r pkgshare/"resources/en<->he.workflow", services_dir
+    cp_r libexec/"resources/en<->he.workflow", services_dir
   end
 
   def caveats

@@ -10,12 +10,16 @@ class EnHeReplace < Formula
     libexec.install "resources"
   end
 
-  def post_install
-    services_dir = File.expand_path("~/Library/Services")
-    mkdir_p services_dir unless Dir.exist?(services_dir)
-    cp_r libexec/"resources/en<->he.workflow", services_dir
-  end
+def post_install
+  user_home = ENV["HOME"]
+  services_dir = File.join(user_home, "Library/Services")
+  workflow_src = libexec/"resources/en<->he.workflow"
+  workflow_dst = File.join(services_dir, "en<->he.workflow")
 
+  mkdir_p services_dir
+  rm_rf workflow_dst
+  cp_r workflow_src, workflow_dst
+end
   def caveats
     <<~EOS
       To uninstall completely, run:

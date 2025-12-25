@@ -7,21 +7,15 @@ class EnHeReplace < Formula
 
   def install
     bin.install "en-he-replace"
-    libexec.install "resources"
+    pkgshare.install "resources"
   end
 
-def post_install
-  user_home = ENV["HOME"]
-  services_dir = File.join(user_home, "Library/Services")
-  workflow_src = libexec/"resources/en<->he.workflow"
-  workflow_dst = File.join(services_dir, "en<->he.workflow")
-
-  mkdir_p services_dir
-  rm_rf workflow_dst
-  cp_r workflow_src, workflow_dst
-end
   def caveats
     <<~EOS
+      This formula installs the en-he-replace macOS Service.
+      To enable it, copy the workflow to your Services folder:
+        cp -R #{pkgshare}/en-he-replace.workflow ~/Library/Services/
+
       To uninstall completely, run:
 
         rm -rf ~/Library/Services/en\\<-\\>he.workflow
